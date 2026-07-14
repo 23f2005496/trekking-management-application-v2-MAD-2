@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #eef2f3;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+        }
+
+        .header {
+            background: #1e40af;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .summary {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .label {
+            font-weight: bold;
+            width: 300px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .report-table th {
+            background: #1e40af;
+            color: white;
+            padding: 12px;
+        }
+
+        .report-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1e40af;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>📊 Monthly Trekking Activity Report</h1>
+
+            <p>{{ month }}</p>
+
+        </div>
+
+        <div class="content">
+
+            <div class="card">
+
+                <h2>Overall Summary</h2>
+
+                <table class="summary">
+
+                    <tr>
+                        <td class="label">🏔 Total Treks Conducted</td>
+                        <td>{{ total_treks }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">👥 Total Participants</td>
+                        <td>{{ total_participants }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">📖 Total Bookings of Popular trek</td>
+                        <td>{{ booking_count }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">⭐ Most Popular Trek</td>
+                        <td>
+
+                            <span class="badge">
+
+                                {{ popular_trek }}
+
+                            </span>
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🥇 Top 3 Popular Treks</h2>
+
+                <ol>
+
+                    {% for trek, count in top_three %}
+
+                    <li>
+
+                        <strong>{{ trek }}</strong>
+
+                        ({{ count }} Participants)
+
+                    </li>
+
+                    {% else %}
+
+                    <li>No trekking activity this month.</li>
+
+                    {% endfor %}
+
+                </ol>
+
+            </div>
+
+            <div class="card">
+
+                <h2>📋 Trek-wise Statistics</h2>
+
+                <table class="report-table">
+
+                    <tr>
+
+                        <th>Trek</th>
+
+                        <th>Location</th>
+
+                        <th>Duration</th>
+
+                        <th>Start Date</th>
+
+                        <th>End Date</th>
+
+                        <th>Assigned Staff</th>
+
+                        <th>Participants</th>
+
+                    </tr>
+
+                    {% for trek in trek_statistics %}
+
+                    <tr>
+
+                        <td>{{ trek.name }}</td>
+
+                        <td>{{ trek.location }}</td>
+
+                        <td>{{ trek.duration }}</td>
+
+                        <td>{{ trek.start_date.strftime("%d-%m-%Y") }}</td>
+
+                        <td>{{ trek.end_date.strftime("%d-%m-%Y") }}</td>
+
+                        <td>{{ trek.assigned_staff }}</td>
+
+                        <td>{{ trek.participants }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+            <p>
+
+                This report was generated automatically by the Trekking Management System.
+
+            </p>
+
+        </div>
+
+        <div class="footer">
+
+            <strong>Trekking Management Team</strong>
+
+            <br><br>
+
+            Thank you.
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
